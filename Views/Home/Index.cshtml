@@ -1,0 +1,106 @@
+﻿
+@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<Assignment2.Asp.net_Core_L1.Models.Items>
+
+@{
+    Layout =null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <title>Index</title>
+    <style>
+        .ul.pagination {
+            display: inline-block;
+            padding: 0;
+            margin: 0;
+        }
+
+        ul.pagination li {
+            display: inline;
+        }
+
+            ul.pagination li a {
+                color: black;
+                float: left;
+                padding: 8px 16px;
+                text-decoration: none;
+                transition: background-color .3s;
+            }
+
+                ul.pagination li a.active {
+                    background-color: black;
+                    color: greenyellow;
+                }
+
+                ul.pagination li a:hover:not(.active) {
+                    background-color: deepskyblue;
+                }
+    </style>
+</head>
+<body>
+
+    <div class="bg-info p-2 ">
+        <div class="row">
+            <div class="col-2 mx-5">
+                <div style="margin-left: 27px; font-weight: 600;">BRAND</div>
+                <select class="dropdown">
+                    <option value="">All</option>
+                    <option value="">Option1</option>
+                    <option value="">Option2</option>
+                </select>
+            </div>
+            <div class="col-2">
+                <div style="margin-left: 27px; font-weight: 600;">TYPE</div>
+                <select class="dropdown">
+                    <option value="">All</option>
+                    <option value="">Option1</option>
+                    <option value="">Option2</option>
+                </select>
+            </div>
+            <div class="col-2">
+                <button class="btn btn-success">
+                    <span  font-size: 29px; font-weight: bold;">></span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div style="width:100%;text-align:center"><h4>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</h4></div>
+
+    @foreach (var item in Model)
+
+    {
+
+<div id="@Html.DisplayFor(modelItem=>item.id)" class="text-danger"style="width:32%;height:400px;float:left;margin:10px;margin-bottom:150px;text-align:center">
+    <img style="width:100%; height:100%;display:inline-block" src="~/Content/images/@Html.DisplayFor(modelItem => item.image)" />
+    
+    <button class="btn btn-success" style="width:90%;margin-top:20px">Add to cart</button>
+    <br />
+    @Html.DisplayFor(modelItem => item.name)
+    <br />
+
+    &#8377;@Html.DisplayFor(modelItem => item.price)
+    
+
+</div>
+
+
+    }
+
+    <br />
+    <br />
+
+
+    <div class="pagination" style="margin-left: 45%;float:left">
+
+        @Html.PagedListPager(Model, page => Url.Action("Index", "Home", new { page }))
+    </div>
+</body>
+</html>
